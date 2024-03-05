@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Products</h1>
+  <table class="table table-stripped">
+    <thead class="table-dark">
+      <tr>
+        <th></th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let product of products">
+      <td>
+        <img src="{{ product.imgUrl }}" height="50" alt="product-picture" />
+      </td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price | currency : "USD" }}</td>
+      <td>{{ product.unitInStock }}</td>
+    </tbody>
+  </table>
+</div>
