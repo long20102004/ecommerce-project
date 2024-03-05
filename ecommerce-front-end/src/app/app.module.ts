@@ -6,11 +6,17 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductServiceService } from './services/product-service.service';
+import { PurchasingComponent } from './components/purchasing/purchasing.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    PurchasingComponent,
+    LandingComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
