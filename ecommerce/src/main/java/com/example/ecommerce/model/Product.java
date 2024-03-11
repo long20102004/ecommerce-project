@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -15,6 +16,7 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "sku")
@@ -36,8 +38,13 @@ public class Product {
     @Column(name = "last_updated")
     private Date lastUpdated;
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private ProductCategories productCategories;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "product_user",
+            joinColumns = @JoinColumn(name = "fk_product", referencedColumnName = "name"),
+            inverseJoinColumns = @JoinColumn(name = "fk_user", referencedColumnName = "username"))
+    private List<User> users;
 
     @Override
     public String toString() {

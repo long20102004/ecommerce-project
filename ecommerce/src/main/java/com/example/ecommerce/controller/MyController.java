@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.dto.UserDto;
+import com.example.ecommerce.model.Product;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.ProductService;
 import com.example.ecommerce.service.UserService;
@@ -13,7 +14,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
+@SessionAttributes("product")
 public class MyController {
     private ProductService productService;
     private UserService userService;
@@ -25,8 +29,8 @@ public class MyController {
     }
 
     @GetMapping("")
-    public String landingPage(){
-        return "landing-page";
+    public ModelAndView landingPage(Model model){
+        return userService.showLandingPage();
     }
     @GetMapping("/products")
     public ModelAndView getAllProduct(){
@@ -49,14 +53,16 @@ public class MyController {
     public ModelAndView submitSignUpForm(@ModelAttribute("user") @Valid UserDto userDto, Errors errors){
         return userService.postUserData(userDto, errors);
     }
-    @GetMapping("/my-cart")
-    public ModelAndView userCart(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("cart");
-        return modelAndView;
-    }
     @GetMapping("not-found")
     public String notFound(){
         return "not-found";
+    }
+    @GetMapping("/my-cart")
+    public ModelAndView showCart(){
+        return userService.showCart();
+    }
+    @PostMapping("/add-product")
+    public ModelAndView addProduct(@ModelAttribute("product")Product product){
+        return userService.addProduct(product);
     }
 }

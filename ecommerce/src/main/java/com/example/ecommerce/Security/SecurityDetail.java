@@ -7,7 +7,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityDetail {
-
     @Bean
     public SecurityFilterChain manageRoles(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.formLogin(form -> {
@@ -15,7 +14,8 @@ public class SecurityDetail {
         });
         httpSecurity.authorizeHttpRequests(request -> {
             request.requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/products").hasRole("USER")
+                    .requestMatchers("/my-cart").hasRole("USER")
+                    .requestMatchers("/add-product").hasRole("USER")
                     .anyRequest().permitAll();
         });
         httpSecurity.csrf(csrf -> {csrf.disable();});
